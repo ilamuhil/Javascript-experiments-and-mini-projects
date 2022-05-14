@@ -1,0 +1,56 @@
+:root {
+    font-family: Sans-serif;
+}
+
+.content {
+    position: absolute;
+    bottom: 0;
+    left: 12px;
+    right: 12px;
+    opacity: 0;
+    padding:10px;
+    transition: 1s ease 0s;
+    text-align: left;
+
+    h4 {
+        font-size: 1.25rem;
+        transition: 1s ease 0s;
+        transform: translateX(-30%);
+    }
+
+    line-height: normal;
+
+
+    small {
+        font-size: 0.8rem;
+        color: white;
+    }
+
+    p {
+        color: white;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 5px;
+        
+        
+    }
+}
+
+.product-card {
+    width: 30ch;
+
+    &:hover {
+        .content {
+            opacity: 1;
+            background-color: black; 
+            h4{
+                transform: translateX(0%);
+            } 
+        }
+
+
+    }
+
+}

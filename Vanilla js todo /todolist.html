@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<style>
+    ul{
+        list-style-type:upper-roman !important;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="d-flex flex-column align-items-center"></div>
+        <H1 class="text-center display-1 text-secondary">To Do List</H1>
+        <form class="" name="form">
+            <input class="form-control mx-auto" type="text" id="todolist" name="todolist"
+                Placeholder="What do you have planned for today?">
+        </form>
+        <div id="todo">
+            <ul id="list">
+            </ul>
+        </div>
+       
+    </div>
+
+    <script>
+        var form = document.forms.form;
+
+        //deletes the list item on clicking the delete button 
+        function deleteItem(event) {
+           
+            if(event.target.parentElement.nodeName=="DEL"){
+                document.getElementById("list").removeChild(event.target.parentElement.parentElement);
+            }
+            else{
+                document.getElementById("list").removeChild(event.target.parentElement);
+            }
+            
+        }
+
+        //this function adds a del tag on clicking the completed button  
+        function completed(event){
+            var clickedButton = event.target;
+            event.target.parentElement.innerHTML = '<del>' + event.target.parentElement.innerHTML + '</del>' ;
+
+        }
+        //adding list item with buttons on form submit 
+        form.onsubmit = function () {
+            var item = document.createElement("li");
+            item.setAttribute("class", "my-2 d-block");
+            item.innerHTML = form.todolist.value +
+                `<button  class="btn btn-danger btn-sm mx-2" onclick='deleteItem(event)'>Delete</button>` + `<button  class="btn btn-success btn-sm mx-2" onclick='completed(event)'>Complete</button>`;
+            //clearing the value inside input tag after submitting value    
+            form.todolist.value = "";
+            document.getElementById("list").appendChild(item);
+            return false;
+        }
+    </script>
+</body>
+
+</html>

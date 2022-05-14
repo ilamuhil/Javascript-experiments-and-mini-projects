@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Blurred Image Loading</title>
+    <style>
+        :root{
+            --blurval:10px;
+            --loadcontentposition:10px;
+            --scrwidth:500px;
+            --scrheight:100px;
+        }
+        body{
+            margin:0px;
+        }
+        #bg-img{
+            height: 900px;
+            width: 100%;
+            background-image: url("assets/images/rename.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter:blur(var(--blurval));
+        }
+        .loadingcontent{
+            top:800px;
+            z-index: 999;
+             top:var(--scrheight/2);
+             left:var(--scrwidth/2);
+             transition:1s;        
+        }
+    </style>
+</head>
+<body>
+    
+        <div id="bg-img"> 
+            
+        </div>
+        <h2 class="position-absolute loadingcontent"> </h2>
+        
+    <script>
+        scrwidth =window.innerWidth;
+        scrheight = window.innerHeight;
+        console.log(scrwidth);
+        console.log(scrheight);
+
+        blurVal = 10;
+        h2element = document.getElementsByTagName("h2")[0];
+        loadVal=0;
+        root = document.documentElement ; 
+        root.style.setProperty( '--scrwidth' , scrwidth);
+        root.style.setProperty('--scrheight' , scrheight);
+        function updtBlur(){
+            blurVal-=1;
+            root.style.setProperty( '--blurval',blurVal-1+"px");
+        }
+        function updtLoadVal(){
+            if(loadVal == 100){
+                clearInterval(loadInterval);
+                clearInterval(blurInterval);
+                h2element.style.display="none";
+            }
+            else{
+                loadVal+=1;
+                h2element.innerHTML="Loading Image : "+ loadVal+"%";
+            }
+            
+        }
+        
+        loadInterval = setInterval(updtLoadVal,40);
+        blurInterval = setInterval(updtBlur,400);    
+        
+    
+    </script>
+</body>
+</html>

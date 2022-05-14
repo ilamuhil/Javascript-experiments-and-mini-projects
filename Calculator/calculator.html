@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        
+        .cal-container{
+            max-width:400px;
+            margin: 100px auto;
+            background-color: rgba(177, 177, 177, 0.692);
+            border-radius: 4px;
+            padding-bottom:0px;
+        }
+        #screen {
+            width: 100%;
+            font-size: 2rem;
+            height:80px;
+            border-radius: 3px;
+            border: none;
+            background-color: #252525;
+            color: #fff;
+            text-align: right;
+            padding-right: 20px;
+            padding-top:10px;
+            padding-left: 10px;
+            margin-bottom: 15px;
+            overflow-x: hidden;
+            
+        }
+        button{
+            width:70px;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        }
+        
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container-sm">
+        <div class="cal-container shadow-lg">
+            <div id="screen"></div>
+            <div class="row">
+                <div class="col-3"> <button class="btn btn-dark px-4 m-1" id="plus" onclick="opNumclick('+',1)">+</button></div>
+                <div class="col-3"> <button class="btn btn-dark px-4 m-1" id="minus" onclick="opNumclick('-',1)">-</button></div>
+                <div class="col-3"> <button class="btn btn-dark px-4 m-1" id="mult" onclick="opNumclick('*',1)">*</button></div>
+                <div class="col-3"> <button class="btn btn-dark px-4 m-1" id="divide" onclick="opNumclick('/',1)">/</button></div>
+               
+            </div>
+            <div class="row">
+                
+                <div class="col-3"><button class="btn btn-warning px-4 m-1" id="num1" onclick="clr()">AC</button></div>
+                <div class="col-3"><button class="btn btn-primary px-4 m-1" id="equal" onclick="eval()">=</button></div>
+                
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num6" onclick="opNumclick('0')">0</button></div>
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num1" onclick="opNumclick('1')">1</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num2" onclick="opNumclick('2')">2</button></div>
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num3" onclick="opNumclick('3')">3</button></div>
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num4" onclick="opNumclick('4')">4</button></div>
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num5" onclick="opNumclick('5')">5</button></div>
+                
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num6" onclick="opNumclick('6')">6</button></div>   
+                
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num7" onclick="opNumclick('7')">7</button></div>
+                <div class="col-3"><button class="btn btn-dark px-4 m-1" id="num8" onclick="opNumclick('8')">8</button></div>
+                <di class="col-3"><button class="btn btn-dark px-4 m-1" id="num9" onclick="opNumclick('9')">9</button></div>
+                   
+            </div>
+            
+        </div>
+    </div>
+
+
+    <script>
+        var exp="" ;
+        function dispexp(){
+            document.getElementById("screen").innerHTML=exp;
+        }
+        function opNumclick(value,isOperator = 0){
+            if(isOperator != 0){
+                exp += " "+value+" ";
+            }
+            else{
+                exp+=value;
+            }
+            dispexp();       
+        }
+         
+        function isOp(operator){
+            if (operator=='+' || operator=='-' || operator=='*' || operator=='/' ){
+                return true;
+            }
+            return false;
+        }
+        function eval(){
+            var replaced=0;
+            res = exp.split(" ");
+            for(let i=0; i<res.length ; i++){
+                if(!isOp(res[i])){
+                    res[i] = parseFloat(res[i]);
+                }
+            }
+            while(res.length != 1){
+                while(res.indexOf("/")!=-1){
+                    var i = res.indexOf("/");
+                    if (res[i+1]==0){
+                        exp= "UNDEFINED"; 
+                        dispexp();
+                        return;
+                    } 
+                    replaced = res[i-1]/res[i+1];
+                    res[i]=replaced;
+                    res.splice(i-1,1);
+                    res.splice(i,1);            
+                }
+                while(res.indexOf("*")!=-1){
+                    var i = res.indexOf("*");
+                    replaced = res[i-1]*res[i+1];
+                    res[i]=replaced;
+                    res.splice(i-1,1);
+                    res.splice(i,1);
+                }
+                while(res.indexOf("+")!=-1){
+                    var i = res.indexOf("+");
+                    replaced = res[i-1]+res[i+1];
+                    res[i]=replaced;
+                    res.splice(i-1,1);
+                    res.splice(i,1);
+                }
+                while(res.indexOf("-")!=-1){
+                    var i = res.indexOf("-");
+                    replaced = res[i-1]-res[i+1];
+                    res[i]=replaced;
+                    res.splice(i-1,1);
+                    res.splice(i,1);
+                } 
+            }
+            exp=res[0];
+            dispexp();
+        }
+        function clr(){
+            exp="";
+            dispexp();
+        }
+
+    </script>  
+  </body>
+</html>

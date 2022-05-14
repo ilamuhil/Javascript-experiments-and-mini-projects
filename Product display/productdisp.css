@@ -1,0 +1,53 @@
+:root {
+  font-family: Sans-serif;
+}
+
+.content {
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  opacity: 0;
+  padding: 10px;
+  -webkit-transition: 1s ease 0s;
+  transition: 1s ease 0s;
+  text-align: left;
+  line-height: normal;
+}
+
+.content h4 {
+  font-size: 1.25rem;
+  -webkit-transition: 1s ease 0s;
+  transition: 1s ease 0s;
+  -webkit-transform: translateX(-30%);
+          transform: translateX(-30%);
+}
+
+.content small {
+  font-size: 0.8rem;
+  color: white;
+}
+
+.content p {
+  color: white;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 5px;
+}
+
+.product-card {
+  width: 30ch;
+}
+
+.product-card:hover .content {
+  opacity: 1;
+  background-color: black;
+}
+
+.product-card:hover .content h4 {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+}
+/*# sourceMappingURL=productdisp.css.map */
